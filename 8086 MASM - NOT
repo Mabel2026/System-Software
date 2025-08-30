@@ -1,0 +1,31 @@
+.model small 
+.data 
+.code 
+mov ax, @data 
+mov ds, ax 
+mov ax,853Ah 
+not ax 
+mov cx, 04h 
+mov dx,0h 
+L1: 
+mov bx,10h 
+div bx 
+push dx 
+xor dx,dx 
+loop L1 
+mov cx, 04h 
+L2: 
+pop dx 
+cmp dx,0Ah 
+jge GT9 
+add dx,30h 
+jmp Display 
+Gt9: 
+add dx, 37h 
+Display: 
+mov ah, 02h 
+int 21h 
+loop L2 
+mov ah, 4ch 
+int 21h 
+end 
