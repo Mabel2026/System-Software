@@ -1,0 +1,50 @@
+.model small 
+.data 
+a db 00H 
+b db 01H 
+c1 db 06H 
+msg1 db "FIBONACCI 
+SERIES",0AH,0DH,"$" 
+ 
+space db " ", "$" 
+d db 06 dup(?) 
+.code 
+mov ax,@data 
+mov ds,ax 
+mov si,offset a 
+ 
+mov al,[si] 
+mov si,offset b 
+mov bl,[si] 
+mov si,offset c1 
+mov cx,[si] 
+mov si,offset d 
+lea dx,msg1 
+mov ah,09H 
+int 21H 
+l1: add al,bl 
+mov [si],al 
+mov al,bl 
+mov bl,[si] 
+inc si 
+loop l1 
+mov cx,06H 
+mov si,offset d 
+l2: mov al,[si] 
+ 
+cmp al,0AH 
+jge ALPHA 
+add al,30H 
+jmp incre 
+ALPHA: add al,37H 
+incre: mov dl,al 
+mov ah,02H 
+int 21h 
+lea dx, space 
+mov ah, 09H 
+int 21h 
+inc si 
+loop l2 
+mov ah,4CH 
+int 21H 
+end
